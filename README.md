@@ -1,6 +1,6 @@
 # Solvent-Inclusive ML/MM Simulations: Assessments of Structural, Dynamical, and Thermodynamic Accuracy
 
-This repository contains the simulation scripts used to reproduce the results from the paper:
+This repository contains the simulation scripts used to reproduce the results from the manuscript:
 
 >
 
