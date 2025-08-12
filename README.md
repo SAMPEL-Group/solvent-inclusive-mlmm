@@ -73,7 +73,7 @@ The model was trained using the DeepMD-kit 2.2.9 [package](https://deepmd.readth
 **Nature Communications** **14**, 3349 (2023).  
 [https://doi.org/10.1038/s41467-023-38855-1](https://doi.org/10.1038/s41467-023-38855-1)
 
-Use of these models in the ML/MM simulatiosn only requires a change to the name of the model in the OpenMM script.
+Use of these models in the ML/MM simulations only requires a change to the name of the model in the OpenMM script.
 
 ## Running Simulations
 
