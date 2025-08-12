@@ -1,4 +1,4 @@
-# Solvent-Inclusive ML/MM Simulations: Assessments of Structural, Dynamical, and Thermodynamic Accuracy
+# Solvent-Inclusive ML/MM Simulations
 
 This repository contains the simulation scripts used to reproduce the results from the manuscript:
 
@@ -7,7 +7,7 @@ This repository contains the simulation scripts used to reproduce the results fr
 ChemRxiv, preprint (2025).  
 [Link pending ChemRxiv approval]
 
-## Conda Environment
+## Software Requirements
 
 To run the code in this directory, create a conda environment with the required packages using Anaconda or Mamba. Installation must be performed on a GPU node. A few plugins need to be generated from source.
 
@@ -41,7 +41,7 @@ This plugin must be built from source. Follow the instructions from the [OpenMM-
 
 This plugin will be installed from the `environment.yml` file described above. However, the plugin will not contain the `manyrestraints` module needed to implement the `UWALLS` and `LWALLS` restraints to define the ML-MM boundary. As a result, PLUMED will need to be built from source and then linked to the OpenMM-Plumed plugin. 
 
-Install PLUMED 2.9.0 using these [instructions](https://www.plumed.org/doc-v2.9/user-doc/html/_installation.html) from the PLUMED website. Make sure to include the `manyrestraints` [module](https://www.plumed.org/doc-v2.9/user-doc/html/mymodules.html) when building PLUMED. Now, to ensure that the OpenMM-Plumed plugin is correctly linked to the PLUMED library, the `PLUMED_KERNEL_PATH` environment variable should be modified in the OpenMM python scripts. Find the path to the `lib/libplumedKernel.so` for the PLUMED built from source. Now, in the OpenMM script, change the `PLUMED_KERNEL_PATH`: 
+Install PLUMED 2.9.0 using these [instructions](https://www.plumed.org/doc-v2.9/user-doc/html/_installation.html) from the PLUMED website. Make sure to include the `manyrestraints` [module](https://www.plumed.org/doc-v2.9/user-doc/html/mymodules.html) when building PLUMED. To ensure that the OpenMM-Plumed plugin is correctly linked to the PLUMED library, the `PLUMED_KERNEL_PATH` environment variable should be modified in the OpenMM python scripts. Find the path to the `lib/libplumedKernel.so` for the PLUMED built from source. Now, in the OpenMM script, change the `PLUMED_KERNEL_PATH`: 
 
 ```python
 import os
@@ -50,8 +50,9 @@ os.environ['PLUMED_KERNEL'] = '<path_to_plumed>/plumed/plumed-2.9.0/lib/libplume
 
 from openmmplumed import PlumedForce
 ```
+An example of how to do this for an OpenMM script can be seen with the scripts provided.
 
-## DeepMD Model
+## DeepMD Models
 
 The DeepMD model used in this work was trained on the data from the following paper: 
 
@@ -75,7 +76,7 @@ The model was trained using the DeepMD-kit 2.2.9 [package](https://deepmd.readth
 
 Use of these models in the ML/MM simulations only requires a change to the name of the model in the OpenMM script.
 
-## Running Simulations
+## Simulation Scripts
 
 We provide OpenMM scripts to run both systems studied in this work: neat water and formic acid in water. The files are located in the `scripts` directory. Comments are provided to explain the different sections of the code, including the custom integrator scheme and the ML/MM boundary definition. 
 
