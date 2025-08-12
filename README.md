@@ -3,8 +3,8 @@
 This repository contains the simulation scripts used to reproduce the results from the manuscript:
 
 > V. Gopal, C. Kirkvold, A. Gordon, J. Goodpaster, and S. Sarupria.  
-*Solvent-Inclusive ML/MM Simulations: Assessments of Structural, Dynamical, and Thermodynamic Accuracy.*  
-ChemRxiv, preprint (2025).  
+Solvent-Inclusive ML/MM Simulations: Assessments of Structural, Dynamical, and Thermodynamic Accuracy.
+*ChemRxiv* (2025).  
 [Link pending ChemRxiv approval]
 
 ## Software Requirements
@@ -65,14 +65,11 @@ The model was trained using the DeepMD-kit 2.2.9 [package](https://deepmd.readth
 
 1. [Water model](https://github.com/deepmodeling/dpgen/discussions/699) associated with the paper:  
    >L. Zhang, H. Wang, R. Car, and W. E.  
-*Phase Diagram of a Deep Potential Water Model.*  
-**Physical Review Letters** **126** (23), 236001 (2021).  
+Phase Diagram of a Deep Potential Water Model.
+*Physical Review Letters* **126** (23), 236001 (2021).  
 [https://doi.org/10.1103/PhysRevLett.126.236001](https://doi.org/10.1103/PhysRevLett.126.236001)
 2. [Water model](https://github.com/paesanilab/Data_Repository/tree/main/Quantum-phase-diagram-of-water/Deep_Neural_Network_Potential) associated with the paper:  
-   >S. L. Bore and F. Paesani.  
-*Realistic phase diagram of water from “first principles” data-driven quantum simulations.*  
-**Nature Communications** **14**, 3349 (2023).  
-[https://doi.org/10.1038/s41467-023-38855-1](https://doi.org/10.1038/s41467-023-38855-1)
+   >Bore, S.L., Paesani, F. Realistic phase diagram of water from “first principles” data-driven quantum simulations. *Nat Commun* **14**, 3349 (2023). https://doi.org/10.1038/s41467-023-38855-1
 
 Use of these models in the ML/MM simulations only requires a change to the name of the model in the OpenMM script.
 
