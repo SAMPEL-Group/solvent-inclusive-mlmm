@@ -227,7 +227,7 @@ system = System()
 ##### DEEPMD FORCE ########
 
 # Set up the dp_system with the dp_model.    
-dp_model_file = os.path.join('Laage_bulk.pb')
+dp_model_file = os.path.join('LR_model.pb')
 dp_model = DeepPotentialModel(dp_model_file)
 coord_coeff = 10 # convert from to nm to Angstroms
 force_coeff = 964.8792534459 # convert from kJ/(mol*nm) to kcal/(mol*A)
