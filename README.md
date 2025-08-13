@@ -9,7 +9,11 @@ Solvent-Inclusive ML/MM Simulations: Assessments of Structural, Dynamical, and T
 
 ## Software Dependencies
 
-To run the code in this directory, create a conda environment with the required packages using Anaconda or Mamba. Installation must be performed on a GPU node. A few plugins need to be generated from source.
+The simulation scripts use OpenMM and the OpenMM-DeePMD plugin, which enables the use of machine-learned interatomic potentials (MLIPs) in molecular dynamics simulations.
+
+### Conda Environment
+
+Most software dependencies can be installed by creating a conda environment using the provided `environment.yml` file. Installation should be performed on a GPU-enabled node.
 
 To create the environment using mamba, run the following command:
 
@@ -30,15 +34,19 @@ The command above will install the following packages:
 
 ### OpenMM Plugins
 
-**OpenMM-DeepMD plugin**:
+Some OpenMM plugins are required to run the simulations.
 
-This plugin must be built from source. Follow the instructions from the [OpenMM-DeepMD plugin repository](https://github.com/JingHuangLab/openmm_deepmd_plugin). This study built the plugin from commit `04603ac`.
+**OpenMM-DeePMD plugin**:
+
+This plugin must be built from source. Follow the instructions from the [OpenMM-DeePMD plugin repository](https://github.com/JingHuangLab/openmm_deepmd_plugin). This study built the plugin from commit `04603ac`.
 
 **OpenMM-Plumed plugin**:
 
-This plugin will be installed from the `environment.yml` file described above. However, the plugin will not contain the `manyrestraints` module needed to implement the `UWALLS` and `LWALLS` restraints to define the ML-MM boundary. As a result, PLUMED will need to be built from source and then linked to the OpenMM-Plumed plugin. 
+This plugin will be installed from the `environment.yml` file described above. However, the plugin will not contain the `manyrestraints` module needed to implement the `UWALLS` and `LWALLS` restraints to define the ML-MM boundary (Eqs. 4 & 5 in the main text). As a result, PLUMED will need to be built from source and then linked to the OpenMM-Plumed plugin. 
 
-Install PLUMED 2.9.0 using these [instructions](https://www.plumed.org/doc-v2.9/user-doc/html/_installation.html) from the PLUMED website. Make sure to include the `manyrestraints` [module](https://www.plumed.org/doc-v2.9/user-doc/html/mymodules.html) when building PLUMED. To ensure that the OpenMM-Plumed plugin is correctly linked to the PLUMED library, the `PLUMED_KERNEL_PATH` environment variable should be modified in the OpenMM python scripts. Find the path to the `lib/libplumedKernel.so` for the PLUMED built from source. Now, in the OpenMM script, change the `PLUMED_KERNEL_PATH`: 
+Install PLUMED 2.9.0 using these [instructions](https://www.plumed.org/doc-v2.9/user-doc/html/_installation.html) from the PLUMED website. Make sure to include the `manyrestraints` [module](https://www.plumed.org/doc-v2.9/user-doc/html/mymodules.html) when building PLUMED. 
+
+<!-- To ensure that the OpenMM-Plumed plugin is correctly linked to the PLUMED library, the `PLUMED_KERNEL_PATH` environment variable should be modified in the OpenMM python scripts (discused below). Find the path to the `lib/libplumedKernel.so` for the PLUMED built from source. Now, in the OpenMM script, change the `PLUMED_KERNEL_PATH`: 
 
 ```python
 import os
@@ -47,33 +55,32 @@ os.environ['PLUMED_KERNEL'] = '<path_to_plumed>/plumed/plumed-2.9.0/lib/libplume
 
 from openmmplumed import PlumedForce
 ```
-An example of how to do this for an OpenMM script can be seen with the scripts provided.
+An example of how to do this for an OpenMM script can be seen with the scripts provided. -->
 
-## DeepMD Models
+## Machine-Learned Interatomic Potentials
 
-The DeepMD model used in this work was trained on the data from the following paper: 
+The DeepPot-SE models used in this work were trained on data from the following paper: 
 
->M. de la Puente, R. David, A. Gomez, and D. Laage.  
-*Acids at the Edge: Why Nitric and Formic Acid Dissociations at Air–Water Interfaces Depend on Depth and on Interface Specific Area.*  
-**Journal of the American Chemical Society** **144** (23), 10524–10529 (2022).  
-[https://doi.org/10.1021/jacs.2c03099](https://doi.org/10.1021/jacs.2c03099)
+>Miguel de la Puente, Rolf David, Axel Gomez, and Damien Laage
+*Journal of the American Chemical Society* 2022 144 (23), 10524-10529
+DOI: [10.1021/jacs.2c03099](https://doi.org/10.1021/jacs.2c03099)
 
-The model was trained using the DeepMD-kit 2.2.9 [package](https://deepmd.readthedocs.io/en/latest/). A trained model is not provided with this repo as the associated training data is not publically available. However, we provide links to publicly available DeepMD models that can be used. Two examples of water models are provided below:
+The models were trained using the DeePMD-kit 2.2.9 [package](https://deepmd.readthedocs.io/en/latest/). 
 
-1. [Water model](https://github.com/deepmodeling/dpgen/discussions/699) associated with the paper:  
-   >L. Zhang, H. Wang, R. Car, and W. E.  
-Phase Diagram of a Deep Potential Water Model.
-*Physical Review Letters* **126** (23), 236001 (2021).  
-[https://doi.org/10.1103/PhysRevLett.126.236001](https://doi.org/10.1103/PhysRevLett.126.236001)
-2. [Water model](https://github.com/paesanilab/Data_Repository/tree/main/Quantum-phase-diagram-of-water/Deep_Neural_Network_Potential) associated with the paper:  
-   >Bore, S.L., Paesani, F. Realistic phase diagram of water from “first principles” data-driven quantum simulations. *Nat Commun* **14**, 3349 (2023). https://doi.org/10.1038/s41467-023-38855-1
-
-Use of these models in the ML/MM simulations only requires a change to the name of the model in the OpenMM script.
+We provide the two DeePMD model files used in this work in the `scripts` directory. The models are in the `.pb` format, which is compatible with the OpenMM-DeePMD plugin:
+- `LR_model.pb`: Referred to as LR model in the main text
+- `SR_model.pb`: Referred to as SR model in the main text
 
 ## Simulation Scripts
 
-We provide OpenMM scripts to run both systems studied in this work: neat water and formic acid in water. The files are located in the `scripts` directory. Comments are provided to explain the different sections of the code, including the custom integrator scheme and the ML/MM boundary definition. 
+We provide OpenMM scripts to run ML/MM simulations of both systems studied in this work: neat water and formic acid in water. The files are located in the `scripts` directory. Comments are provided to explain the different sections of the code, including the custom integrator scheme and the ML/MM boundary definition. 
 
 1. **Neat water system**: `scripts/mlmm_water_system_0.5nm_ml_region.py`
 
 2. **Formic acid in water system**: `scripts/mlmm_fa_system_0.5nm_ml_region.py`
+
+To run the simulations, load the conda environment created above and execute the script using Python:
+
+```python
+python <script_name>.py
+```
