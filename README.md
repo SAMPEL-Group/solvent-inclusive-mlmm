@@ -66,12 +66,6 @@ We provide OpenMM scripts to run ML/MM simulations of both systems studied in th
 
 2. **Formic acid in water system**: `scripts/mlmm_fa_system_0.5nm_ml_region.py`
 
-To run the simulations, load the conda environment created above and execute the script using Python:
-
-```python
-python <script_name>.py
-```
-
 To ensure that the OpenMM-Plumed plugin is correctly linked to the PLUMED library, the `PLUMED_KERNEL_PATH` environment variable should be modified in the scripts. Find the path to the `lib/libplumedKernel.so` for the PLUMED built from source. In the OpenMM script, change the `PLUMED_KERNEL_PATH`: 
 
 ```python
@@ -80,4 +74,10 @@ import os
 os.environ['PLUMED_KERNEL'] = '<path_to_plumed>/plumed/plumed-2.9.0/lib/libplumedKernel.so'
 
 from openmmplumed import PlumedForce
+```
+
+To run the simulations, load the conda environment created above and execute the script using Python:
+
+```python
+python <script_name>.py
 ```
