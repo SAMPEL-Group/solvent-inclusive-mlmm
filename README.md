@@ -52,7 +52,7 @@ The DeepPot-SE models used in this work were trained on data from the following 
 *Journal of the American Chemical Society* 2022 144 (23), 10524-10529
 DOI: [10.1021/jacs.2c03099](https://doi.org/10.1021/jacs.2c03099)
 
-The training data is not included in this repository but can be obtained by contacting the authors of the above paper.
+The training data is not included in this repository and was obtained upon request from the authors of the above paper.
 
 The models were trained using the DeePMD-kit 2.2.9 [package](https://deepmd.readthedocs.io/en/latest/). 
 
