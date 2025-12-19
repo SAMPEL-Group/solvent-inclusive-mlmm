@@ -1,8 +1,8 @@
 # Solvent-Inclusive ML/MM Simulations
 
-This repository contains the simulation scripts used to reproduce the results from the manuscript:
+This repository contains the simulation scripts used to reproduce the results from the publication:
 
-> Gopal V, Kirkvold C, Gordon A, Goodpaster J, Sarupria S. Solvent-Inclusive ML/MM Simulations: Assessments of Structural, Dynamical, and Thermodynamic Accuracy. ChemRxiv. 2025; doi:[10.26434/chemrxiv-2025-dlr6c](https://doi.org/10.26434/chemrxiv-2025-dlr6c)
+> Gopal, V., Kirkvold, C., Gordon, A., Goodpaster, J., Sarupria, S. Solvent-Inclusive ML/MM Simulations: Assessments of Structural, Dynamical, and Thermodynamic Accuracy. Journal of Chemical Information and Modeling (JCIM). 2025. doi: [10.1021/acs.jcim.5c01939](https://doi.org/10.1021/acs.jcim.5c01939)
 
 ## Software Dependencies
 
